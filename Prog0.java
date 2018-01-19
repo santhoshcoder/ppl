@@ -86,6 +86,7 @@ public class Prog0
         }
     }
     System.out.println(" " + lines + " " + words + " " + characters);
-    System.out.println("Length of the longest word is: "+maxLength);
+    System.out.println("Length of the longest word is: " + maxLength);
+    System.out.println("The average length of lines is: " + characters/lines);
   }
 }
