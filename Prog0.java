@@ -44,7 +44,7 @@ public class Prog0
   {
     int maxLength = 0;
     int i = getNext();
-    System.out.println("I is:" + i);
+    //System.out.println("I is:" + i);
     while (i != -1) 
     { 
       // Repeat until end-of-file is reached.
@@ -81,10 +81,11 @@ public class Prog0
                  
                }
                i = getNext();
-               System.out.println("I is:"+i);
+               //System.out.println("I is:"+i);
             } while (whiteSpace((char)i));
         }
     }
     System.out.println(" " + lines + " " + words + " " + characters);
+    System.out.println("Length of the longest word is: "+maxLength);
   }
 }
