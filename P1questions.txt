@@ -1,0 +1,9 @@
+1Q) What should be the output if the input is as follows
+line    ( With a space)
+
+2Q) What should be the output if the input is a space?
+
+3Q) What should be the length of the lines for the above inputs and for the following inputs
+
+line 1
+line 2
