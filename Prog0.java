@@ -44,7 +44,6 @@ public class Prog0
   {
     int maxLength = 0;
     int i = getNext();
-    //System.out.println("I is:" + i);
     while (i != -1) 
     { 
       // Repeat until end-of-file is reached.
@@ -60,7 +59,6 @@ public class Prog0
                // Skip to the next white space character.
                wordLength++;
                i = getNext();
-               //System.out.println("I is:"+i);
            } while (i != -1 && !whiteSpace((char)i));
            if(maxLength < wordLength)
            {
@@ -81,7 +79,6 @@ public class Prog0
                  
                }
                i = getNext();
-               //System.out.println("I is:"+i);
             } while (whiteSpace((char)i));
         }
     }
