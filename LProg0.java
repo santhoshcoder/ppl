@@ -4,7 +4,7 @@
   of white-space separated character sequences, and the number
   of bytes read.
 */
-public class Prog0
+public class LProg0
 {
   static int lines = 0;
   static int words = 0;
