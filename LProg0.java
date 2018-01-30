@@ -42,7 +42,7 @@ public class LProg0
 
   public static void main(String argv[]) throws java.io.IOException
   {
-    int maxLength = 0;
+    int maxLength = 0; // Variable to store the length of the longest word
     int i = getNext();
     while (i != -1)
     {
@@ -53,7 +53,7 @@ public class LProg0
           // Word state
           //
           words++;    // We've seen another word.
-          int wordLength = 0;
+          int wordLength = 0;   // Variable to store the length of each word
           do
            {
                // Skip to the next white space character.
@@ -84,6 +84,13 @@ public class LProg0
     }
     System.out.println(" " + lines + " " + words + " " + characters);
     System.out.println("Length of the longest word is: " + maxLength);
-    System.out.println("The average length of lines is: " + (characters - lines)/(1.0*lines));
+
+    /* 
+      As characters variable include '\n' [new lines] we need to deduct the no of 
+      lines from characters varaible before computing the average length of lines.
+      By multiplying the variables lines with 1.0 the result will be a decimal value
+    */
+    
+    System.out.println("The average length of lines is: " + (characters - lines)/(1.0*lines)); 
   }
 }
