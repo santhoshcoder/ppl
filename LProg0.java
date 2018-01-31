@@ -94,7 +94,7 @@ public class LProg0
 
     /* 
       Average length of lines considering words is done by the following statement
-    */
       System.out.println("The average length of lines is: "+ (words)/(1.0*lines));
+    */
   }
 }
