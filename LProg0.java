@@ -89,8 +89,12 @@ public class LProg0
       As characters variable include '\n' [new lines] we need to deduct the no of 
       lines from characters varaible before computing the average length of lines.
       By multiplying the variables lines with 1.0 the result will be a decimal value
-    */
-    
+    */    
     System.out.println("The average length of lines is: " + (characters - lines)/(1.0*lines)); 
+
+    /* 
+      Average length of lines considering words is done by the following statement
+    */
+      System.out.println("The average length of lines is: "+ (words)/(1.0*lines));
   }
 }
