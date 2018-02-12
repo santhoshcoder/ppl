@@ -2,7 +2,8 @@
    machinery for constructing the parent and child relationships
    between nodes. */
 
-public interface Node {
+public interface Node 
+{
   /* This method tells the node to add its argument to the node's
      list of children.  */
   public void addChild(Node n, int i);

@@ -1,6 +1,7 @@
 /* This is a simple TreeNode that implements the Node interface. */
 
-public class TreeNode implements Node {
+public class TreeNode implements Node 
+{
   public static final int NUM = 0;
   public static final int ADD = 1;
   public static final int MUL = 2;
@@ -8,14 +9,19 @@ public class TreeNode implements Node {
   protected Node[] children;
   protected int id;
 
-  public TreeNode(int i) {
+  public TreeNode(int i) 
+  {
     id = i;
   }
 
-  public void addChild(Node n, int i) {
-    if (children == null) {
+  public void addChild(Node n, int i) 
+  {
+    if (children == null) 
+    {
       children = new Node[i + 1];
-    } else if (i >= children.length) {
+    } 
+    else if (i >= children.length) 
+    {
       Node c[] = new Node[i + 1];
       System.arraycopy(children, 0, c, 0, children.length);
       children = c;
@@ -23,11 +29,13 @@ public class TreeNode implements Node {
     children[i] = n;
   }
 
-  public Node getChild(int i) {
+  public Node getChild(int i) 
+  {
     return children[i];
   }
 
-  public int getNumChildren() {
+  public int getNumChildren() 
+  {
     return (children == null) ? 0 : children.length;
   }
 
@@ -37,22 +45,32 @@ public class TreeNode implements Node {
      toString(String), otherwise overriding toString() is probably all
      you need to do. */
 
-  public String toString() { return "Node: " + id; }
-  public String toString(String prefix) { return prefix + toString(); }
+  public String toString() 
+  { 
+    return "Node: " + id; 
+  }
+
+  public String toString(String prefix) 
+  { 
+    return prefix + toString(); 
+  }
 
   /* Override this method if you want to customize how the node dumps
      out its children. */
 
-  public void dump(String prefix) {
+  public void dump(String prefix) 
+  {
     System.out.println(toString(prefix));
-    if (children != null) {
-      for (int i = 0; i < children.length; ++i) {
-	TreeNode n = (TreeNode)children[i];
-	if (n != null) {
-	  n.dump(prefix + " ");
-	}
+    if (children != null) 
+    {
+      for (int i = 0; i < children.length; ++i) 
+      {
+	       TreeNode n = (TreeNode)children[i];
+	       if (n != null) 
+         {
+	         n.dump(prefix + " ");
+	       }
       }
     }
   }
-
 }
