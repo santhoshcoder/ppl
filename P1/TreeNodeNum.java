@@ -6,4 +6,9 @@ class TreeNodeNum extends TreeNode
     super(i);
     number = temp;
   }
+  public String toString() 
+  { 
+  	//System.out.println("TreeNodeNum Class");
+    return " " + number; 
+  }
 }

@@ -49,6 +49,8 @@ public class TreeNode implements Node
 
   public String toString() 
   { 
+    if(id!=0)
+      System.out.println("Printing ID's");
     return " " + id; 
   }
 
