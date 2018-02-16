@@ -48,8 +48,12 @@ class Mfunction
     			m.addChild(num,m.getNumChildren());
     		}   
 	    }
+        System.out.print("\nThe Tree representation:");
+        m.dump("");
+
+        //System.out.println("\n\nNo of childrens in TreeNode: " + m.getNumChildren());
         
-        System.out.print("\nPrinting Tree of");
-        m.dump(" ");
+        //Evaluating Tree
+        System.out.println("\nThe value: "+m.eval(m));
 	}
 }

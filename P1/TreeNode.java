@@ -39,6 +39,37 @@ public class TreeNode implements Node
     return (children == null) ? 0 : children.length;
   }
 
+  public String value()
+  {
+    //do nothing
+    return "-20";
+  }
+
+  public int eval(TreeNode temp)
+  {
+    if(temp.getNumChildren() == 0)
+    {
+      //System.out.println("Number found");
+      return Integer.parseInt(temp.value());
+    }
+    else if(temp.value().equals("-20"))
+    {
+      return eval((TreeNode)temp.getChild(0));
+    }
+    else if(temp.value().equals("+"))
+    {
+      //System.out.println("Addition found");
+      return eval((TreeNode)temp.getChild(0)) + eval((TreeNode)temp.getChild(1));
+    }
+    else if(temp.value().equals("*"))
+    {
+      //System.out.println("Multiplication found");
+      return eval((TreeNode)temp.getChild(0)) * eval((TreeNode)temp.getChild(1));
+    }
+    //System.out.println("\nNone Executed");
+    //System.out.println("Temp.value() is:" + temp.value());
+    return -1;
+  }
   /* You can override these two methods in subclasses of TreeNode to
      customize the way the node appears when the tree is dumped.  If
      your output uses more than one line you should override
@@ -47,9 +78,12 @@ public class TreeNode implements Node
 
   public String toString() 
   { 
+    /*
     if(id!=0)
       System.out.println("Printing ID's");
     return "TreeNode Object No: "+ (id + 1); 
+    */
+    return "";
   }
 
   public String toString(String prefix) 

@@ -10,4 +10,9 @@ class TreeNodeAdd extends TreeNode
   { 
     return " " + ch; 
   }
+  public String value()
+  {
+    //do nothing
+    return ch;
+  }
 }
