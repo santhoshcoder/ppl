@@ -8,7 +8,6 @@ class TreeNodeAdd extends TreeNode
   }
   public String toString() 
   { 
-    //System.out.println("TreeNodeAdd Class");
     return " " + ch; 
   }
 }

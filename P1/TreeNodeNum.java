@@ -8,7 +8,6 @@ class TreeNodeNum extends TreeNode
   }
   public String toString() 
   { 
-  	//System.out.println("TreeNodeNum Class");
     return " " + number; 
   }
 }

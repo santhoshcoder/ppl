@@ -8,7 +8,6 @@ class TreeNodeMul extends TreeNode
   }
   public String toString() 
   { 
-    //System.out.println("TreeNodeMul Class");
     return " " + ch; 
   }
 }

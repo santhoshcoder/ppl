@@ -18,12 +18,10 @@ public class TreeNode implements Node
   {
     if (children == null) 
     {
-      //System.out.println("children is Null");
       children = new Node[i + 1];
     } 
     else if (i >= children.length) 
     {
-      //System.out.println("children not null");
       Node c[] = new Node[i + 1];
       System.arraycopy(children, 0, c, 0, children.length);
       children = c;
@@ -51,14 +49,13 @@ public class TreeNode implements Node
   { 
     if(id!=0)
       System.out.println("Printing ID's");
-    return " " + id; 
+    return "TreeNode Object No: "+ (id + 1); 
   }
 
   public String toString(String prefix) 
   { 
     return prefix + toString(); 
   }
-
   /* Override this method if you want to customize how the node dumps
      out its children. */
 
