@@ -12,7 +12,6 @@ class TreeNodeMul extends TreeNode
   }
   public String value()
   {
-    //do nothing
     return ch;
   }
 }

@@ -41,7 +41,6 @@ public class TreeNode implements Node
 
   public String value()
   {
-    //do nothing
     return "-20";
   }
 
@@ -49,7 +48,6 @@ public class TreeNode implements Node
   {
     if(temp.getNumChildren() == 0)
     {
-      //System.out.println("Number found");
       return Integer.parseInt(temp.value());
     }
     else if(temp.value().equals("-20"))
@@ -58,16 +56,12 @@ public class TreeNode implements Node
     }
     else if(temp.value().equals("+"))
     {
-      //System.out.println("Addition found");
       return eval((TreeNode)temp.getChild(0)) + eval((TreeNode)temp.getChild(1));
     }
     else if(temp.value().equals("*"))
     {
-      //System.out.println("Multiplication found");
       return eval((TreeNode)temp.getChild(0)) * eval((TreeNode)temp.getChild(1));
     }
-    //System.out.println("\nNone Executed");
-    //System.out.println("Temp.value() is:" + temp.value());
     return -1;
   }
   /* You can override these two methods in subclasses of TreeNode to
@@ -78,11 +72,6 @@ public class TreeNode implements Node
 
   public String toString() 
   { 
-    /*
-    if(id!=0)
-      System.out.println("Printing ID's");
-    return "TreeNode Object No: "+ (id + 1); 
-    */
     return "";
   }
 
@@ -90,9 +79,9 @@ public class TreeNode implements Node
   { 
     return prefix + toString(); 
   }
+
   /* Override this method if you want to customize how the node dumps
      out its children. */
-
   public void dump(String prefix) 
   {
     System.out.println(toString(prefix));

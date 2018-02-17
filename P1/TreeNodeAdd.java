@@ -12,7 +12,6 @@ class TreeNodeAdd extends TreeNode
   }
   public String value()
   {
-    //do nothing
     return ch;
   }
 }

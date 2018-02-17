@@ -51,8 +51,6 @@ class Mfunction
         System.out.print("\nThe Tree representation:");
         m.dump("");
 
-        //System.out.println("\n\nNo of childrens in TreeNode: " + m.getNumChildren());
-        
         //Evaluating Tree
         System.out.println("\nThe value: "+m.eval(m));
 	}

@@ -12,7 +12,6 @@ class TreeNodeNum extends TreeNode
   }
   public String value()
   {
-    //do nothing
     return ""+number;
   }
 }
