@@ -64,12 +64,43 @@ public class TreeNode implements Node
     }
     return -1;
   }
+ 
+  public void clone(TreeNode t)
+  {
+    t.addChild(getChild(0),t.getNumChildren());
+  }
+
+  public void set(String x)
+  {
+    //do nothing
+  }
+
+  public void swapping(TreeNode temp)
+  {
+    if(temp.value().equals("-20"))
+    {
+      swapping((TreeNode)temp.getChild(0));
+    }
+    else if(temp.value().equals("+"))
+    {
+      temp.set("*");
+      swapping((TreeNode)temp.getChild(0));
+      swapping((TreeNode)temp.getChild(1));
+    }
+    else if(temp.value().equals("*"))
+    {
+      temp.set("+");
+      swapping((TreeNode)temp.getChild(0));
+      swapping((TreeNode)temp.getChild(1));
+    }
+  }
+  
   /* You can override these two methods in subclasses of TreeNode to
      customize the way the node appears when the tree is dumped.  If
      your output uses more than one line you should override
      toString(String), otherwise overriding toString() is probably all
-     you need to do. */
-
+     you need to do. 
+  */
   public String toString() 
   { 
     return "";

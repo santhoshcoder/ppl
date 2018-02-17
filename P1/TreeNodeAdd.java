@@ -14,4 +14,8 @@ class TreeNodeAdd extends TreeNode
   {
     return ch;
   }
+  public void set(String x)
+  {
+    ch = x;
+  }
 }

@@ -6,10 +6,12 @@ class Mfunction
 	{
 		TreeNode m = new TreeNode(0);
 	    String expression;
-	    Scanner sc = new Scanner(System.in);
+	    
+        Scanner sc = new Scanner(System.in);
 	    expression = sc.nextLine();
 	    String words[] = expression.trim().split(" ");
-	    TreeNodeMul mul;
+	    
+        TreeNodeMul mul;
 	    TreeNodeAdd add;
 	    TreeNodeNum num; 
 
@@ -53,5 +55,20 @@ class Mfunction
 
         //Evaluating Tree
         System.out.println("\nThe value: "+m.eval(m));
+
+        TreeNode mc = new TreeNode(1);
+        
+        //Cloning the tree
+        m.clone(mc);
+        //System.out.println("\nThe clone tree:");
+        //mc.dump("");
+
+        //Swap + and * operations
+        mc.swapping(mc);
+        System.out.print("\nThe new tree:");
+        mc.dump("");
+
+        System.out.print("\n The old tree is:");
+        m.dump("");
 	}
 }
