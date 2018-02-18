@@ -65,9 +65,52 @@ public class TreeNode implements Node
     return -1;
   }
  
-  public void clone(TreeNode t)
+  public void clone(TreeNode t,TreeNode org)
   {
-    t.addChild(getChild(0),t.getNumChildren());
+    //t.addChild(getChild(0),t.getNumChildren());
+    if(org.value().equals("-20"))
+    {
+      TreeNode c1 = (TreeNode)org.getChild(0);
+      String c_value = c1.value();
+      TreeNode n = check(c_value);
+      t.addChild(n,t.getNumChildren());
+      clone((TreeNode)t.getChild(0),(TreeNode)org.getChild(0));
+    }
+    else
+    {
+      if(org.getNumChildren() != 0)
+      {
+        TreeNode child0 = (TreeNode) org.getChild(0);
+        String c1 = child0.value();
+        TreeNode n1 = check(c1);
+        t.addChild(n1,t.getNumChildren()); 
+
+        TreeNode child1 = (TreeNode) org.getChild(1);
+        String c2 = child1.value();
+        TreeNode n2 = check(c2);
+        t.addChild(n2,t.getNumChildren());
+
+        clone((TreeNode)t.getChild(0),(TreeNode)org.getChild(0));
+        clone((TreeNode)t.getChild(1),(TreeNode)org.getChild(1));
+      }
+    }
+  }
+
+  public TreeNode check(String c_value)
+  {
+    if(c_value.equals("+"))
+    {
+      TreeNodeAdd ad = new TreeNodeAdd(3,c_value);
+      return (TreeNode) ad;
+    }
+    else if(c_value.equals("*"))
+    {
+      TreeNodeMul ml = new TreeNodeMul(4,c_value);
+      return (TreeNode) ml;
+    }
+    //It's a Number
+    TreeNodeNum nm = new TreeNodeNum(5,Integer.parseInt(c_value));
+    return (TreeNode) nm;
   }
 
   public void set(String x)

@@ -58,17 +58,18 @@ class Mfunction
 
         TreeNode mc = new TreeNode(1);
         
-        //Cloning the tree
-        m.clone(mc);
-        //System.out.println("\nThe clone tree:");
-        //mc.dump("");
+        //Cloning Original Tree m into mc
+        m.clone(mc,m);
 
-        //Swap + and * operations
+        //Swap + and * operations in mc
         mc.swapping(mc);
+        
+        //Printing New Tree (mc)
         System.out.print("\nThe new tree:");
         mc.dump("");
 
-        System.out.print("\n The old tree is:");
-        m.dump("");
+        System.out.println("\nThe value of the new tree: " + mc.eval(mc));
+
+        System.out.println("\nThe value of the original tree: " + m.eval(m));
 	}
 }
