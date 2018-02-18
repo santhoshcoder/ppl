@@ -67,7 +67,6 @@ public class TreeNode implements Node
  
   public void clone(TreeNode t,TreeNode org)
   {
-    //t.addChild(getChild(0),t.getNumChildren());
     if(org.value().equals("-20"))
     {
       TreeNode c1 = (TreeNode)org.getChild(0);

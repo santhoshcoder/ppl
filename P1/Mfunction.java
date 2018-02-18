@@ -50,6 +50,8 @@ class Mfunction
     			m.addChild(num,m.getNumChildren());
     		}   
 	    }
+
+        //Printing Tree Representation
         System.out.print("\nThe Tree representation:");
         m.dump("");
 
@@ -68,8 +70,10 @@ class Mfunction
         System.out.print("\nThe new tree:");
         mc.dump("");
 
+        //Evaluating and Printing new tree
         System.out.println("\nThe value of the new tree: " + mc.eval(mc));
 
+        //Re-evaluating and Printing original tree
         System.out.println("\nThe value of the original tree: " + m.eval(m));
 	}
 }
