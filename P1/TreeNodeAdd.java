@@ -8,7 +8,7 @@ class TreeNodeAdd extends TreeNode
   }
   public String toString() 
   { 
-    return " " + ch; 
+    return ch; 
   }
   public String value()
   {

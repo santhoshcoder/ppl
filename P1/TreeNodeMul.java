@@ -8,7 +8,7 @@ class TreeNodeMul extends TreeNode
   }
   public String toString() 
   { 
-    return " " + ch; 
+    return ch; 
   }
   public String value()
   {
