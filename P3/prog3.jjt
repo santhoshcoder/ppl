@@ -1,0 +1,122 @@
+options
+{
+    MULTI = true;
+    STATIC = false;
+}
+PARSER_BEGIN(prog3)
+class prog3
+{
+    public static void main(String args[])
+    {
+        System.out.println("Enter an applied Lambda Expression");
+        prog3 obj = new prog3(System.in);
+        try
+        {
+            ASTStart t = obj.Start();
+            System.out.println("The abstract syntax tree:");
+            ((SimpleNode)t.jjtGetChild(0)).dump("");
+            /*
+                System.out.println("\nThe Lambda expression in the concrete syntax:");
+                ((SimpleNode)t.jjtGetChild(0)).printExpr();
+                System.out.println("\n\n");
+                System.out.println("The abstract suntax tree with free variables:");
+                ((SimpleNode)t.jjtGetChild(0)).dumpFV("");
+                //System.out.println("\nThank you.");
+            */
+        }
+        catch(Exception e)
+        {
+            System.out.println("Oops.");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
+        System.out.println("Enter the variable to be substituted:");
+        String s;
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+ 
+        System.out.println("Enter an applied Lambda Expression");
+        prog3 obj1 = new prog3(System.in);
+        try
+        {
+            ASTStart t = obj1.Start();
+            System.out.println("The abstract syntax tree:");
+            ((SimpleNode)t.jjtGetChild(0)).dump("");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Oops.");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+PARSER_END(prog3)
+SKIP:
+{
+        " "
+|       "\n"
+|       "\t"
+|       "\r"
+}
+TOKEN:
+{
+        <Lambda: "L">
+|       <var: ["a"-"z","_"](["a"-"z","0"-"9","_"])*>
+|       <num: (["0"-"9"])+>
+}
+
+ASTStart Start():
+{       }
+{
+        Expression()
+        {return jjtThis;}
+}
+
+void Expression() #void:
+{       }
+{
+        Variable()
+|       Number()
+|       "+" #add(0)
+|       "-" #sub(0)
+|       "*" #mul(0)
+|       "/" #div(0)
+|       "%" #mod(0)
+|       Appl()
+|       Abstraction()
+}
+void Number():
+{ Token t; }
+{
+    t = <num>
+    {  jjtThis.setName(t.image); }
+}
+void Variable():
+{ Token t; }
+{
+    t = <var>
+    { jjtThis.setName(t.image); }
+}
+void Appl() #void:
+{       }
+{
+    "(" Expression() (Expression() #appl(2))* ")"
+}
+void Body() #void:
+{   }
+{
+    "." Application()
+|   Variable() Body() #lamb(2)
+}
+void Application() #void:
+{   }
+{
+    Expression() (LOOKAHEAD(2)Expression() #appl(2))*
+}
+void Abstraction() #void:
+{   }
+{
+    <Lambda> Variable() Body() #lamb(2)
+}
