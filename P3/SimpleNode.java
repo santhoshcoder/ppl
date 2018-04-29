@@ -76,13 +76,28 @@ class SimpleNode implements Node {
   */
     public SimpleNode copy(SimpleNode expr){
       SimpleNode n = findClass(expr);
-      if(children.length == 1){
-        
+      System.out.println(expr.toString());
+      System.out.println(expr.jjtGetNumChildren());
+      if(expr.jjtGetNumChildren() >= 1){
+        SimpleNode first = copy((SimpleNode)expr.children[0]);
+        if(first != null)
+          n.jjtAddChild(first,0);
       }
+      if(expr.jjtGetNumChildren() == 2){
+        SimpleNode second = copy((SimpleNode)expr.children[1]);
+        if(second != null)
+          n.jjtAddChild(second,0);
+      }
+      return n;
     }
-    public SimpleNode substitute(String varName, SimpleNode expr){
+    public void substitute(String varName, SimpleNode expr){
         //1. Make a copy of expr
         SimpleNode newCopy = copy(expr);
+        if(newCopy!= null && newCopy.equals(expr)){
+          System.out.println("Same");
+        }
+        else if(newCopy != null)
+          System.out.println("Not Same");
     }
 
     public SimpleNode findClass(SimpleNode expr){
@@ -102,12 +117,14 @@ class SimpleNode implements Node {
       else if(expr instanceof ASTadd)
         n = new ASTadd(expr.id);
       else if(expr instanceof ASTVariable){
-        n = new ASTVariable(expr.id);
-        n.setName(expr.toString());
+        ASTVariable n1 = new ASTVariable(expr.id);
+        n1.setName(expr.toString());
+        n = n1;
       }
       else if(expr instanceof ASTNumber){
-        n = new ASTNumber(expr.id);
-        n.setName(expr.toString());
+        ASTNumber n2 = new ASTNumber(expr.id);
+        n2.setName(expr.toString());
+        n = n2;
       }
       return n;
     }

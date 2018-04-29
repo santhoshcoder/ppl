@@ -10,12 +10,19 @@ class prog3
     {
         System.out.println("Enter an applied Lambda Expression");
         prog3 obj = new prog3(System.in);
-        ASTStart t1 = null;
         try
         {
-            t1 = obj.Start();
+            ASTStart t = obj.Start();
             System.out.println("The abstract syntax tree:");
-            ((SimpleNode)t1.jjtGetChild(0)).dump("");
+            ((SimpleNode)t.jjtGetChild(0)).dump("");
+            /*
+                System.out.println("\nThe Lambda expression in the concrete syntax:");
+                ((SimpleNode)t.jjtGetChild(0)).printExpr();
+                System.out.println("\n\n");
+                System.out.println("The abstract suntax tree with free variables:");
+                ((SimpleNode)t.jjtGetChild(0)).dumpFV("");
+                //System.out.println("\nThank you.");
+            */
         }
         catch(Exception e)
         {
@@ -23,22 +30,19 @@ class prog3
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        
+
         System.out.println("Enter the variable to be substituted:");
         String s;
-        String s1;
         Scanner sc = new Scanner(System.in);
-        s1 = sc.next();
-        s = s1.charAt(0) + "";
-        
-        System.out.println("Enter the substituting applied Lambda expression:");
+        s = sc.next().charAt(0) + "";
+
+        System.out.println("Enter an applied Lambda Expression");
         prog3 obj1 = new prog3(System.in);
-        ASTStart t2 = null;
         try
         {
-            t2 = obj1.Start();
+            ASTStart t = obj1.Start();
             System.out.println("The abstract syntax tree:");
-            ((SimpleNode)t2.jjtGetChild(0)).dump("");
+            ((SimpleNode)t.jjtGetChild(0)).dump("");
         }
         catch(Exception e)
         {
@@ -46,10 +50,6 @@ class prog3
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("Variale s1 is: "+ s1);
-        System.out.println("Variale s is: "+ s);
-        if(t1 != null)
-            ((SimpleNode)t1.jjtGetChild(0)).substitute(s,(SimpleNode)t2.jjtGetChild(0));
     }
 }
 PARSER_END(prog3)
