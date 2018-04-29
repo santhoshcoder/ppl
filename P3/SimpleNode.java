@@ -60,7 +60,7 @@ class SimpleNode implements Node {
      out its children. */
 
   public void dump(String prefix) {
-    System.out.println(toString(prefix)+"\t"+getClass().getName());
+    System.out.println(toString(prefix));
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
@@ -76,28 +76,30 @@ class SimpleNode implements Node {
   */
     public SimpleNode copy(SimpleNode expr){
       SimpleNode n = findClass(expr);
-      System.out.println(expr.toString());
-      System.out.println(expr.jjtGetNumChildren());
+      //System.out.println(expr.toString());
+      //System.out.println(expr.jjtGetNumChildren());
       if(expr.jjtGetNumChildren() >= 1){
         SimpleNode first = copy((SimpleNode)expr.children[0]);
         if(first != null)
-          n.jjtAddChild(first,0);
+          n.jjtAddChild(first,n.jjtGetNumChildren());
       }
       if(expr.jjtGetNumChildren() == 2){
         SimpleNode second = copy((SimpleNode)expr.children[1]);
         if(second != null)
-          n.jjtAddChild(second,0);
+          n.jjtAddChild(second,n.jjtGetNumChildren());
       }
       return n;
     }
     public void substitute(String varName, SimpleNode expr){
         //1. Make a copy of expr
         SimpleNode newCopy = copy(expr);
-        if(newCopy!= null && newCopy.equals(expr)){
+        if(newCopy != null && newCopy.equals(expr)){
           System.out.println("Same");
         }
         else if(newCopy != null)
           System.out.println("Not Same");
+        System.out.println("Copied Tree is:");
+        newCopy.dump("");
     }
 
     public SimpleNode findClass(SimpleNode expr){
