@@ -91,21 +91,36 @@ class SimpleNode implements Node {
       return n;
     }
     public SimpleNode substitute(String varName, SimpleNode expr){
-      if(this instanceof ASTVariable){
-        if(toString().equals(varName))
+      //if(this instanceof ASTVariable)
+      System.out.println("Class is:"+getClass());
+      if(getClass().isInstance(new ASTVariable(8)))
+      {
+        System.out.println("variable found");
+        if(toString().equals(varName)){
+          System.out.println("Same");
           return copy(expr);
-        else
+        }
+        else{
+          System.out.println("Not same");
           return this;
+        }
       }
-      else if(this instanceof ASTNumber){
+      //else if(this instanceof ASTNumber)
+      else if(getClass().isInstance(new ASTNumber(7)))
+      {
+        System.out.println("Number found: "+toString());
         return this;
       }
-      else if(toString().equals("appl1")){
+      else if(toString().equals("appl")){
+        System.out.println("Application found");
         SimpleNode left = ((SimpleNode)jjtGetChild(0)).substitute(varName,expr);
         jjtAddChild(left,0);
         SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
+        jjtAddChild(right,1);
+        return this;
       }
       else if(toString().equals("lamb")){
+        System.out.println("lamb found");
         String variable = jjtGetChild(0).toString();
         if(variable.equals(varName)){
           //I dont need to goto right
