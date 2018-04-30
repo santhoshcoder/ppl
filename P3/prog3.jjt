@@ -48,8 +48,11 @@ class prog3
         }
         System.out.println("Variale s1 is: "+ s1);
         System.out.println("Variale s is: "+ s);
-        if(t1 != null)
-            ((SimpleNode)t1.jjtGetChild(0)).substitute(s,(SimpleNode)t2.jjtGetChild(0));
+        if(t1 != null){
+            SimpleNode subNode = ((SimpleNode)t1.jjtGetChild(0)).substitute(s1,(SimpleNode)t2.jjtGetChild(0));
+            System.out.println("The substitution result:");
+            subNode.dump("");
+        }
     }
 }
 PARSER_END(prog3)

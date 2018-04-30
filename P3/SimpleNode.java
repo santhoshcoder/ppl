@@ -90,16 +90,33 @@ class SimpleNode implements Node {
       }
       return n;
     }
-    public void substitute(String varName, SimpleNode expr){
-        //1. Make a copy of expr
-        SimpleNode newCopy = copy(expr);
-        if(newCopy != null && newCopy.equals(expr)){
-          System.out.println("Same");
+    public SimpleNode substitute(String varName, SimpleNode expr){
+      if(this instanceof ASTVariable){
+        if(toString().equals(varName))
+          return copy(expr);
+        else
+          return this;
+      }
+      else if(this instanceof ASTNumber){
+        return this;
+      }
+      else if(toString().equals("appl1")){
+        SimpleNode left = ((SimpleNode)jjtGetChild(0)).substitute(varName,expr);
+        jjtAddChild(left,0);
+        SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
+      }
+      else if(toString().equals("lamb")){
+        String variable = jjtGetChild(0).toString();
+        if(variable.equals(varName)){
+          //I dont need to goto right
+          return this;
         }
-        else if(newCopy != null)
-          System.out.println("Not Same");
-        System.out.println("Copied Tree is:");
-        newCopy.dump("");
+        else{
+          System.out.println("You need to implement last 2 substitution rules");
+          return this;
+        }
+      }
+      return this;
     }
 
     public SimpleNode findClass(SimpleNode expr){
