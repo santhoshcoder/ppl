@@ -1,5 +1,5 @@
-public
-class SimpleNode implements Node {
+import java.util.*;
+public class SimpleNode implements Node {
 
   protected Node parent;
   protected Node[] children;
@@ -70,7 +70,6 @@ class SimpleNode implements Node {
       }
     }
   }
-
   /*
     Additional Functions -- Start
   */
@@ -92,9 +91,9 @@ class SimpleNode implements Node {
     }
     public SimpleNode substitute(String varName, SimpleNode expr){
       //if(this instanceof ASTVariable)
-      System.out.println("Class is:"+getClass());
-      if(getClass().isInstance(new ASTVariable(8)))
-      {
+        System.out.println("Class is:"+getClass());
+        if(getClass().isInstance(new ASTVariable(8)))
+        {
         System.out.println("variable found");
         if(toString().equals(varName)){
           System.out.println("Same");
@@ -126,12 +125,27 @@ class SimpleNode implements Node {
           //I dont need to goto right
           return this;
         }
-        else{
-          System.out.println("You need to implement last 2 substitution rules");
+        else if(isNotIn(variable,(expr.freeVars()))
+        {
+          //Substitute on right side
+          SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
+          jjtAddChild(right,1);
           return this;
+        }
+        else{
+          System.out.println("You need to implement the last substitution rule");
         }
       }
       return this;
+    }
+    public boolean isNotIn(String variable,Set<String>free){
+      String[] values = free.toArray(new String[free.size()]);
+      for (int i=0;i<values.length;i++) {
+        if(variable.equals(values[i])){
+          return false;
+        }
+      }
+      return true;
     }
 
     public SimpleNode findClass(SimpleNode expr){
@@ -162,6 +176,42 @@ class SimpleNode implements Node {
       }
       return n;
     }
+    Set<String> freeVars()
+    {
+      Set<String> values3 = new HashSet<String>();
+      if(toString().equals("lamb"))
+      {
+        values3.addAll(((SimpleNode)children[1]).freeVars());
+        values3.removeAll(((SimpleNode)children[0]).freeVars());
+        return values3;
+      }
+      else if(toString().equals("appl"))
+      {
+        values3.addAll(((SimpleNode)children[0]).freeVars());
+        values3.addAll(((SimpleNode)children[1]).freeVars());
+        return values3;
+      }
+      else if(toString().equals("add") || toString().equals("sub") || 
+        toString().equals("mul") || toString().equals("div") || 
+        toString().equals("mod") || isNumeric(toString()))
+      {
+        return values3;
+      }
+      values3.add(toString());
+      return values3;
+  }
+  public boolean isNumeric(String str)
+  {
+    try
+    {
+      int d = Integer.parseInt(str);
+    }
+    catch(NumberFormatException nfe)
+    {
+      return false;
+    }
+    return true;
+  }
   /*
     Additional Functions -- End
   */
