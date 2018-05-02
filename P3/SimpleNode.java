@@ -152,7 +152,7 @@ public class SimpleNode implements Node {
 
       if(toString().equals("lamb")){
         System.out.println("Lambda Found");
-        System.out.println("Calling Right");
+        System.out.println("Calling Right: "+((SimpleNode)jjtGetChild(1)).toString());
         SimpleNode right = ((SimpleNode)jjtGetChild(1)).bRedex();
         if(right != null){
           jjtAddChild(right,1);
@@ -161,29 +161,33 @@ public class SimpleNode implements Node {
 
       else if(toString().equals("appl")){
         System.out.println("Application Found");
-        System.out.println("Calling Left");
+        System.out.println("Calling Left: "+((SimpleNode)jjtGetChild(0)).toString());
         SimpleNode leftNode = ((SimpleNode)jjtGetChild(0)).bRedex();
-        if(leftNode != null){
+        System.out.println("Calling Right: "+((SimpleNode)jjtGetChild(1)).toString());
+        SimpleNode rightNode = (((SimpleNode)jjtGetChild(1)).bRedex());
+        
+        while(leftNode != null){
           jjtAddChild(leftNode,0);
+          leftNode = leftNode.bRedex();
+        }
+
+        while(rightNode != null){
+          jjtAddChild(rightNode,1);
+          rightNode = rightNode.bRedex();
         }
 
         if(((SimpleNode)jjtGetChild(0)).toString().equals("lamb")){
           System.out.println("appl left is lamb");
           SimpleNode left = ((SimpleNode)jjtGetChild(0)); // it's lamb node
           String variable = ((SimpleNode)left.jjtGetChild(0)).toString(); // lamb bound variable
-          System.out.println("Calling Substitution function");
+          System.out.println("Calling Substitution function on Variable: "+variable + " expr root is:"+((SimpleNode)jjtGetChild(1)).toString());
           SimpleNode afterReduction = ((SimpleNode)left.jjtGetChild(1)).substitute(variable,(SimpleNode)jjtGetChild(1));
+          System.out.println("After reduction the Node is:");
+          afterReduction.dump("");
           System.out.println("Returning from Substitution function");
             return afterReduction;
         }
-
-        System.out.println("Calling Right");
-        SimpleNode rightNode = (((SimpleNode)jjtGetChild(1)).bRedex());
-        if(rightNode != null){
-          jjtAddChild(rightNode,1);
-        }
       }
-
       return null;
     }
 
