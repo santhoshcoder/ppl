@@ -53,6 +53,24 @@ class prog3
             System.out.println("The substitution result:");
             subNode.dump("");
         }
+
+        System.out.println(">>> Lambda Expression Evaluator <<<");
+        System.out.println("Enter an applied Lambda expression:");
+        prog3 obj2 = new prog3(System.in);
+        ASTStart t3 = null;
+        try
+        {
+            t3 = obj2.Start();
+            SimpleNode reducedNode = ((SimpleNode)t3.jjtGetChild(0)).applicativeOrderEvaluate();
+            System.out.println("\nThe applicative order evaluation result:");
+            reducedNode.dump("");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Oops.");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
 PARSER_END(prog3)

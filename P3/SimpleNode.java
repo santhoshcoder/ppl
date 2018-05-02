@@ -88,16 +88,20 @@ public class SimpleNode implements Node {
       return n;
     }
     public SimpleNode substitute(String varName, SimpleNode expr){
+      System.out.println("In substitution function");
       if(getClass().isInstance(new ASTVariable(8))){
+        System.out.println("Variable Found");
         if(toString().equals(varName))
           return copy(expr);
         return this;
       }
       else if(getClass().isInstance(new ASTNumber(7)))
       {
+        System.out.println("Number Found");
         return this;
       }
       else if(toString().equals("appl")){
+        System.out.println("Application Found");
         SimpleNode left = ((SimpleNode)jjtGetChild(0)).substitute(varName,expr);
         jjtAddChild(left,0);
         SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
@@ -105,6 +109,7 @@ public class SimpleNode implements Node {
         return this;
       }
       else if(toString().equals("lamb")){
+        System.out.println("Lamb found");
         String variable = jjtGetChild(0).toString();
         if(variable.equals(varName)){
           return this;
@@ -138,6 +143,55 @@ public class SimpleNode implements Node {
         }
       }
       return this;
+    }
+
+    /* The below function returns a SimpleNode after finding and substituting a B-redex 
+       If B-redex not found then it returns null
+    */
+    public SimpleNode bRedex(){
+
+      if(toString().equals("lamb")){
+        System.out.println("Lambda Found");
+        System.out.println("Calling Right");
+        SimpleNode right = ((SimpleNode)jjtGetChild(1)).bRedex();
+        if(right != null){
+          jjtAddChild(right,1);
+        }
+      }
+
+      else if(toString().equals("appl")){
+        System.out.println("Application Found");
+        System.out.println("Calling Left");
+        SimpleNode leftNode = ((SimpleNode)jjtGetChild(0)).bRedex();
+        if(leftNode != null){
+          jjtAddChild(leftNode,0);
+        }
+
+        if(((SimpleNode)jjtGetChild(0)).toString().equals("lamb")){
+          System.out.println("appl left is lamb");
+          SimpleNode left = ((SimpleNode)jjtGetChild(0)); // it's lamb node
+          String variable = ((SimpleNode)left.jjtGetChild(0)).toString(); // lamb bound variable
+          System.out.println("Calling Substitution function");
+          SimpleNode afterReduction = ((SimpleNode)left.jjtGetChild(1)).substitute(variable,(SimpleNode)jjtGetChild(1));
+          System.out.println("Returning from Substitution function");
+            return afterReduction;
+        }
+
+        System.out.println("Calling Right");
+        SimpleNode rightNode = (((SimpleNode)jjtGetChild(1)).bRedex());
+        if(rightNode != null){
+          jjtAddChild(rightNode,1);
+        }
+      }
+
+      return null;
+    }
+
+    public SimpleNode applicativeOrderEvaluate(){
+      SimpleNode reducedNode = bRedex();
+      //System.out.println("After reducion the tree is:");
+      //reducedNode.dump("");
+      return reducedNode;
     }
     
     public boolean isNotIn(String variable,Set<String>free){
