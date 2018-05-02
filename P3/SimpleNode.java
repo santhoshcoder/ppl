@@ -75,8 +75,6 @@ public class SimpleNode implements Node {
   */
     public SimpleNode copy(SimpleNode expr){
       SimpleNode n = findClass(expr);
-      //System.out.println(expr.toString());
-      //System.out.println(expr.jjtGetNumChildren());
       if(expr.jjtGetNumChildren() >= 1){
         SimpleNode first = copy((SimpleNode)expr.children[0]);
         if(first != null)
@@ -90,28 +88,16 @@ public class SimpleNode implements Node {
       return n;
     }
     public SimpleNode substitute(String varName, SimpleNode expr){
-      //if(this instanceof ASTVariable)
-        //System.out.println("Class is:"+getClass());
-        if(getClass().isInstance(new ASTVariable(8)))
-        {
-        //System.out.println("variable found");
-        if(toString().equals(varName)){
-          //System.out.println("Same");
+      if(getClass().isInstance(new ASTVariable(8))){
+        if(toString().equals(varName))
           return copy(expr);
-        }
-        else{
-          //System.out.println("Not same");
-          return this;
-        }
+        return this;
       }
-      //else if(this instanceof ASTNumber)
       else if(getClass().isInstance(new ASTNumber(7)))
       {
-        //System.out.println("Number found: "+toString());
         return this;
       }
       else if(toString().equals("appl")){
-        //System.out.println("Application found");
         SimpleNode left = ((SimpleNode)jjtGetChild(0)).substitute(varName,expr);
         jjtAddChild(left,0);
         SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
@@ -119,15 +105,12 @@ public class SimpleNode implements Node {
         return this;
       }
       else if(toString().equals("lamb")){
-        //System.out.println("lamb found");
         String variable = jjtGetChild(0).toString();
         if(variable.equals(varName)){
-          //I dont need to goto right
           return this;
         }
         else if(isNotIn(variable,(expr.freeVars())))
         {
-          //Substitute on right side
           SimpleNode right = ((SimpleNode)jjtGetChild(1)).substitute(varName,expr);
           jjtAddChild(right,1);
           return this;
@@ -141,6 +124,7 @@ public class SimpleNode implements Node {
             }while(!isNotIn(variable,(expr.freeVars())));
             
             String oldVariableName = jjtGetChild(0).toString();
+
             //You have a unique name so replace left of the lambda with correct variable name
             ASTVariable newvariableNode = new ASTVariable(8);
             newvariableNode.setName(variable);
@@ -155,11 +139,7 @@ public class SimpleNode implements Node {
       }
       return this;
     }
-
-    public void uniqueVariableName(String var){
-
-    }
-
+    
     public boolean isNotIn(String variable,Set<String>free){
       String[] values = free.toArray(new String[free.size()]);
       for (int i=0;i<values.length;i++) {
