@@ -14,7 +14,7 @@ class prog3
         try
         {
             t1 = obj.Start();
-            System.out.println("The abstract syntax tree:");
+            System.out.println("\nThe abstract syntax tree:");
             ((SimpleNode)t1.jjtGetChild(0)).dump("");
         }
         catch(Exception e)
@@ -24,20 +24,18 @@ class prog3
             e.printStackTrace();
         }
         
-        System.out.println("Enter the variable to be substituted:");
-        String s;
+        System.out.println("\nEnter the variable to be substituted:");
         String s1;
         Scanner sc = new Scanner(System.in);
         s1 = sc.next();
-        s = s1.charAt(0) + "";
         
-        System.out.println("Enter the substituting applied Lambda expression:");
+        System.out.println("\nEnter the substituting applied Lambda expression:");
         prog3 obj1 = new prog3(System.in);
         ASTStart t2 = null;
         try
         {
             t2 = obj1.Start();
-            System.out.println("The abstract syntax tree:");
+            System.out.println("\nThe abstract syntax tree:");
             ((SimpleNode)t2.jjtGetChild(0)).dump("");
         }
         catch(Exception e)
@@ -46,15 +44,13 @@ class prog3
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("Variale s1 is: "+ s1);
-        System.out.println("Variale s is: "+ s);
         if(t1 != null){
             SimpleNode subNode = ((SimpleNode)t1.jjtGetChild(0)).substitute(s1,(SimpleNode)t2.jjtGetChild(0));
-            System.out.println("The substitution result:");
+            System.out.println("\nThe substitution result:");
             subNode.dump("");
         }
 
-        System.out.println(">>> Lambda Expression Evaluator <<<");
+        System.out.println("\n>>> Lambda Expression Evaluator <<<");
         System.out.println("Enter an applied Lambda expression:");
         prog3 obj2 = new prog3(System.in);
         ASTStart t3 = null;

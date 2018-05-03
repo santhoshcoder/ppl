@@ -182,21 +182,25 @@ public class SimpleNode implements Node {
 
     public SimpleNode applicativeOrderEvaluate(){
       SimpleNode reducedNode = bRedex();
-      if(reducedNode == null)
-        return this;
-      //return reducedNode;
-      /*
-        Before returning it evaluate the reducedNode
-        System.out.println("Before calling eval the reducedNode is: ");
-        reducedNode.dump("");
-        System.out.println("\n\nCalling reducedNode");
-      */  
-      SimpleNode evaluatedNode = reducedNode.eval();
-      if(evaluatedNode == null){
-        return reducedNode;
+      if(reducedNode == null){
+        SimpleNode evaluatedNode = this.eval();
+        if(evaluatedNode == null){
+          return this;
+        }
+        else
+        {
+          return evaluatedNode;
+        }
       }
-      else{
-        return evaluatedNode;
+      else
+      {
+        SimpleNode evaluatedNode = reducedNode.eval();
+        if(evaluatedNode == null){
+         return reducedNode;
+        }
+        else{
+         return evaluatedNode;
+        }
       }
     }
     
@@ -265,7 +269,11 @@ public class SimpleNode implements Node {
 
   public SimpleNode eval(){
     if(toString().equals("lamb")){
-      return null;
+      //return null;
+      SimpleNode right = ((SimpleNode)jjtGetChild(1)).eval();
+      if(right != null){
+        jjtAddChild(right,1);
+      }
     }
     else if(toString().equals("appl")){
       SimpleNode right = ((SimpleNode)jjtGetChild(1)).eval();
