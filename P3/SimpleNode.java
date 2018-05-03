@@ -182,10 +182,20 @@ public class SimpleNode implements Node {
           String variable = ((SimpleNode)left.jjtGetChild(0)).toString(); // lamb bound variable
           System.out.println("Calling Substitution function on Variable: "+variable + " expr root is:"+((SimpleNode)jjtGetChild(1)).toString());
           SimpleNode afterReduction = ((SimpleNode)left.jjtGetChild(1)).substitute(variable,(SimpleNode)jjtGetChild(1));
+          /*
+          //set the right child to null
+          SimpleNode temp = null;
+          jjtAddChild(temp,1);
+          */
           System.out.println("After reduction the Node is:");
           afterReduction.dump("");
           System.out.println("Returning from Substitution function");
+          //return afterReduction;
+          SimpleNode anotherReduction = afterReduction.bRedex();
+          if(anotherReduction == null){
             return afterReduction;
+          }
+          return anotherReduction;
         }
       }
       return null;
@@ -193,8 +203,8 @@ public class SimpleNode implements Node {
 
     public SimpleNode applicativeOrderEvaluate(){
       SimpleNode reducedNode = bRedex();
-      //System.out.println("After reducion the tree is:");
-      //reducedNode.dump("");
+      if(reducedNode == null)
+        return this;
       return reducedNode;
     }
     
