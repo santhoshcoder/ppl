@@ -184,10 +184,20 @@ public class SimpleNode implements Node {
       SimpleNode reducedNode = bRedex();
       if(reducedNode == null)
         return this;
-      return reducedNode;
+      //return reducedNode;
       /*
         Before returning it evaluate the reducedNode
-      */
+        System.out.println("Before calling eval the reducedNode is: ");
+        reducedNode.dump("");
+        System.out.println("\n\nCalling reducedNode");
+      */  
+      SimpleNode evaluatedNode = reducedNode.eval();
+      if(evaluatedNode == null){
+        return reducedNode;
+      }
+      else{
+        return evaluatedNode;
+      }
     }
     
     public boolean isNotIn(String variable,Set<String>free){
@@ -252,6 +262,61 @@ public class SimpleNode implements Node {
       values3.add(toString());
       return values3;
     }
+
+  public SimpleNode eval(){
+    if(toString().equals("lamb")){
+      return null;
+    }
+    else if(toString().equals("appl")){
+      SimpleNode right = ((SimpleNode)jjtGetChild(1)).eval();
+      if(right != null){
+        jjtAddChild(right,1);
+      }
+      
+      SimpleNode left = ((SimpleNode)jjtGetChild(0)).eval();
+      if(left != null){
+        jjtAddChild(left,0);
+      }
+
+      SimpleNode leftChild = ((SimpleNode)(jjtGetChild(0)));
+      if(!leftChild.toString().equals("appl")){
+        return null;
+      }
+      SimpleNode firstOperand = ((SimpleNode)(leftChild.jjtGetChild(1)));
+      SimpleNode operator = ((SimpleNode)(leftChild.jjtGetChild(0)));
+      SimpleNode secondOperand = ((SimpleNode)(jjtGetChild(1)));
+
+      if(isNumeric(firstOperand.toString()) && isNumeric(secondOperand.toString()) && isOperator(operator.toString())){
+        int first = Integer.parseInt(firstOperand.toString());
+        int second = Integer.parseInt(secondOperand.toString());
+        ASTNumber valueNode = new ASTNumber(7);
+        int answer = 0;
+        if(operator.toString().equals("add")){
+            answer = first + second;
+        }
+        else if(operator.toString().equals("sub")){
+            answer = first - second;
+        }
+        else if(operator.toString().equals("mul")){
+            answer = first * second;
+        }
+        else if(operator.toString().equals("div")){
+            answer = first / second;
+        }
+        else{
+            answer = first % second;
+        }
+        valueNode.setName(answer+"");
+        return valueNode;
+      }
+    }
+    return null;
+  }
+
+  public boolean isOperator(String str){
+      return (str.equals("add") || str.equals("sub") || str.equals("mul") || str.equals("div") || str.equals("mod"));
+  }
+
   public boolean isNumeric(String str)
   {
     try
